@@ -7,5 +7,5 @@ Uses mostly brew.  You should be able to run this straight from a brand new mac 
 ## Run it
 
 ```bash
-curl 
+curl https://raw.githubusercontent.com/codeallthethingz/brew-mac-setup/master/setup.sh | bash
 ```
