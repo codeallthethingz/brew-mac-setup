@@ -63,3 +63,12 @@ if [ $res -ne 0 ]; then
   hdiutil unmount "/Volumes/Miro - formerly RealtimeBoard/"
 fi
 echo "done"
+
+echo "setting up git"
+echo "username:"
+read gitUsername
+echo "email:"
+read gitEmail
+
+git config --global user.email "$gitEmail"
+git config --global user.name "$gitUsername"
