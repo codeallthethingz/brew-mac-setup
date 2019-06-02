@@ -1,7 +1,8 @@
 #!/bin/bash
 
+
 brewCask=("google-chrome" "1password" "iterm2" "slack" "dbeaver-community" "expressvpn" "visual-studio-code" "intellij-idea-ce" "steam" "vlc" "qbittorrent" "zoomus" "java")
-brew=("git" "bat" "zsh" "z" "vim" "docker" "docker-compose" "docker-machine" "xhyve" "docker-machine-driver-xhyve" "wget" "curl" "htop" "pipenv" "gcc" "tree" "jq")
+brew=("git" "bat" "zsh" "z" "vim" "docker" "docker-compose" "docker-machine" "xhyve" "docker-machine-driver-xhyve" "wget" "curl" "htop" "pipenv" "gcc" "tree" "jq" "postgres")
 
 # Annoying macos stuff
 echo -n "setting key repeat..."
@@ -73,3 +74,19 @@ read gitEmail
 
 git config --global user.email "$gitEmail"
 git config --global user.name "$gitUsername"
+
+# Node
+echo -n "installing nvm..."
+command -v nvm >/dev/null 2>&1
+nvmExists=$?
+if [ $nvmExists -ne 0 ]; then 
+  NVM_DIR=""
+  nvmLatest=$(curl https://github.com/nvm-sh/nvm/releases/latest | egrep -so "[0-9]*\.[0-9]*\.[0-9]*")
+  nodeLatest=$(curl https://github.com/nodejs/node/releases/latest | egrep -so "[0-9]*\.[0-9]*\.[0-9]*")
+  echo -n " nvm: $nvmLatest node: $nodeLatest"
+  curl -s -o- "https://raw.githubusercontent.com/nvm-sh/nvm/v${nvmLatest}/install.sh" | bash
+  NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" 
+  nvm install $nodeLatest 
+fi
+echo "done"
