@@ -2,7 +2,7 @@
 
 
 brewCask=("google-chrome" "1password" "iterm2" "slack" "dbeaver-community" "expressvpn" "visual-studio-code" "intellij-idea-ce" "steam" "vlc" "qbittorrent" "zoomus" "java")
-brew=("git" "bat" "zsh" "z" "vim" "docker" "docker-compose" "docker-machine" "xhyve" "docker-machine-driver-xhyve" "wget" "curl" "htop" "pipenv" "gcc" "tree" "jq" "postgres" "coreutils")
+brew=("git" "bat" "zsh" "z" "vim" "docker" "docker-compose" "docker-machine" "xhyve" "docker-machine-driver-xhyve" "wget" "curl" "htop" "pipenv" "gcc" "tree" "jq" "postgres" "coreutils" "r")
 
 # Annoying macos stuff
 echo -n "setting key repeat..."
