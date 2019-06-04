@@ -46,6 +46,7 @@ echo "done"
 
 echo "plugins=(git colored-man colorize pip python brew osx zsh-syntax-highlighting)" > ~/.zshrc-ext
 echo ". `brew --prefix`/etc/profile.d/z.sh" >> ~/.zshrc-ext
+echo "disable r functions" >> ~/.zshrc-ext
 
 # Docker
 echo -n "making docker root :(..."
