@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-brewCask=("google-chrome" "1password" "iterm2" "slack" "dbeaver-community" "expressvpn" "visual-studio-code" "intellij-idea-ce" "steam" "vlc" "qbittorrent" "zoomus" "java")
+brewCask=("google-chrome" "1password" "iterm2" "slack" "dbeaver-community" "expressvpn" "visual-studio-code" "intellij-idea-ce" "steam" "vlc" "qbittorrent" "zoomus" "java" "goland")
 brew=("git" "bat" "zsh" "z" "vim" "docker" "docker-compose" "docker-machine" "xhyve" "docker-machine-driver-xhyve" "wget" "curl" "htop" "pipenv" "gcc" "tree" "jq" "postgres" "coreutils" "r")
 
 # Annoying macos stuff
@@ -91,3 +91,8 @@ if [ $nvmExists -ne 0 ]; then
   nvm install $nodeLatest 
 fi
 echo "done"
+
+# Go paths
+echo 'export GOPATH="${HOME}/.go"' >> ~/.zshrc-ext
+echo 'export GOROOT="$(brew --prefix golang)/libexec"' >> ~/.zshrc-ext
+echo 'export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"' >> ~/.zshrc-ext
