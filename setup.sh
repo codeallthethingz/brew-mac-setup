@@ -1,8 +1,9 @@
 #!/bin/bash
 
 
-brewCask=("google-chrome" "1password" "iterm2" "slack" "dbeaver-community" "expressvpn" "visual-studio-code" "intellij-idea-ce" "steam" "vlc" "qbittorrent" "zoomus" "java" "goland")
-brew=("git" "bat" "zsh" "z" "vim" "docker" "docker-compose" "docker-machine" "xhyve" "docker-machine-driver-xhyve" "wget" "curl" "htop" "pipenv" "gcc" "tree" "jq" "postgres" "coreutils" "r")
+brewCask=("google-chrome" "1password" "iterm2" "slack" "dbeaver-community" "expressvpn" "visual-studio-code" "intellij-idea-ce" "steam" "vlc" "qbittorrent" "zoomus" "java" "goland" "ngrok")
+brew=("git" "bat" "zsh" "z" "vim" "docker" "docker-compose" "docker-machine" "xhyve" "docker-machine-driver-xhyve" "wget" "curl" "htop" "pipenv" "gcc" "tree" "jq" "postgres" "coreutils" "r" "rsync" "tmux")
+npmGlobals=("now" "marko-cli" "http-server" "lasso-cli")
 
 # Annoying macos stuff
 echo -n "setting key repeat..."
@@ -24,7 +25,6 @@ for i in ${brewCask[@]}; do
   brew cask list $i >/dev/null 2>&1 || brew cask install $i
   echo "done"
 done
-
 
 for i in ${brew[@]}; do
   echo -n "installing $i..."
@@ -75,9 +75,10 @@ read gitEmail
 
 git config --global user.email "$gitEmail"
 git config --global user.name "$gitUsername"
+git config --global pager.branch false
 
 # Node
-echo -n "installing nvm..."
+echo "installing nvm..."
 command -v nvm >/dev/null 2>&1
 nvmExists=$?
 if [ $nvmExists -ne 0 ]; then 
@@ -90,6 +91,13 @@ if [ $nvmExists -ne 0 ]; then
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" 
   nvm install $nodeLatest 
 fi
+
+for i in ${npmGlobals[@]}; do
+  echo -n "installing $i..."
+  npm install -g $i
+  echo "done"
+done
+
 echo "done"
 
 # Go paths
