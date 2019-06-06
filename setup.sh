@@ -1,8 +1,8 @@
 #!/bin/bash
 
 
-brewCask=("google-chrome" "1password" "iterm2" "slack" "dbeaver-community" "expressvpn" "visual-studio-code" "intellij-idea-ce" "steam" "vlc" "qbittorrent" "zoomus" "goland" "ngrok" "spectacle" "steermouse" "adoptopenjdk/openjdk/adoptopenjdk8")
-brew=("git" "bat" "zsh" "z" "vim" "docker" "docker-compose" "docker-machine" "xhyve" "docker-machine-driver-xhyve" "wget" "curl" "htop" "pipenv" "gcc" "tree" "jq" "postgres" "coreutils" "r" "rsync" "tmux" "maven")
+brewCask=("google-chrome" "1password" "iterm2" "slack" "dbeaver-community" "expressvpn" "visual-studio-code" "intellij-idea-ce" "steam" "vlc" "qbittorrent" "zoomus" "goland" "ngrok" "spectacle" "steermouse" "adoptopenjdk/openjdk/adoptopenjdk8" "docker")
+brew=("git" "bat" "zsh" "z" "vim" "wget" "curl" "htop" "pipenv" "gcc" "tree" "jq" "postgres" "coreutils" "r" "rsync" "tmux" "maven")
 npmGlobals=("now" "marko-cli" "http-server" "lasso-cli")
 
 # Annoying macos stuff
@@ -47,12 +47,6 @@ echo "done"
 echo "plugins=(git colored-man colorize pip python brew osx zsh-syntax-highlighting)" > ~/.zshrc-ext
 echo ". `brew --prefix`/etc/profile.d/z.sh" >> ~/.zshrc-ext
 echo "disable r functions" >> ~/.zshrc-ext
-
-# Docker
-echo -n "making docker root :(..."
-sudo chown root:wheel $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
-sudo chmod u+s $(brew --prefix)/opt/docker-machine-driver-xhyve/bin/docker-machine-driver-xhyve
-echo "done"
 
 # Miro
 echo -n "installing miro..."
