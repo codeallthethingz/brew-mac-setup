@@ -71,6 +71,9 @@ git config --global user.email "$gitEmail"
 git config --global user.name "$gitUsername"
 git config --global pager.branch false
 
+echo "configuring ssh"
+ssh-keygen -t rsa -b 4096 -C "$gitEmail" -q -N "" -f ~/.ssh/id_rsa
+
 # Node
 echo "installing nvm..."
 command -v nvm >/dev/null 2>&1
