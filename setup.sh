@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-brewCask=("google-chrome" "1password" "iterm2" "slack" "dbeaver-community" "expressvpn" "visual-studio-code" "intellij-idea-ce" "steam" "vlc" "qbittorrent" "zoomus" "goland" "ngrok" "spectacle" "steermouse" "adoptopenjdk/openjdk/adoptopenjdk8" "docker")
+brewCask=("google-chrome" "1password" "iterm2" "slack" "dbeaver-community" "expressvpn" "visual-studio-code" "intellij-idea-ce" "steam" "vlc" "qbittorrent" "zoomus" "goland" "ngrok" "spectacle" "steermouse" "adoptopenjdk/openjdk/adoptopenjdk8" "docker" "sonos")
 brew=("git" "bat" "zsh" "z" "vim" "wget" "curl" "htop" "pipenv" "gcc" "tree" "jq" "postgres" "coreutils" "r" "rsync" "tmux" "maven" "watch")
 npmGlobals=("now" "marko-cli" "http-server" "lasso-cli" "npm-check-updates")
 
@@ -18,6 +18,7 @@ echo "done"
 echo -n "installing brew..."
 command -v brew >/dev/null 2>&1 || { echo >&2 "Installing Homebrew Now"; \
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"; }
+brew tap caskroom/drivers
 echo "done"
 
 for i in ${brewCask[@]}; do
