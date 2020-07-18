@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-brewCask=("google-chrome" "1password" "iterm2" "slack" "dbeaver-community" "expressvpn" "visual-studio-code" "intellij-idea-ce" "steam" "vlc" "qbittorrent" "zoomus" "goland" "ngrok" "spectacle" "steermouse" "adoptopenjdk/openjdk/adoptopenjdk8" "docker" "sonos" "use-engine")
+brewCask=("google-chrome" "1password" "iterm2" "slack" "dbeaver-community" "expressvpn" "visual-studio-code" "intellij-idea-ce" "steam" "vlc" "qbittorrent" "zoomus" "goland" "ngrok" "spectacle" "steermouse" "adoptopenjdk/openjdk/adoptopenjdk8" "docker" "sonos" "use-engine" "ngrok")
 brew=("git" "bat" "zsh" "z" "vim" "wget" "curl" "htop" "pipenv" "gcc" "tree" "jq" "postgres" "coreutils" "r" "rsync" "tmux" "maven" "watch" "gdrive" "go-task/tap/go-task" "goreleaser" "pandoc" "rename" "hub")
 npmGlobals=("now" "marko-cli" "http-server" "lasso-cli" "npm-check-updates")
 
