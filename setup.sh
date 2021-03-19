@@ -3,7 +3,7 @@
 
 brewCask=("brave-browser" "1password" "iterm2" "slack" "dbeaver-community" "expressvpn" "visual-studio-code" "intellij-idea-ce" "steam" "vlc" "qbittorrent" "zoomus" "goland" "ngrok" "spectacle" "steermouse" "adoptopenjdk/openjdk/adoptopenjdk8" "docker")
 brew=("git" "bat" "zsh" "z" "vim" "wget" "curl" "htop" "pipenv" "gcc" "tree" "jq" "postgres" "coreutils" "r" "rsync" "tmux" "maven" "watch" "gdrive" "go-task/tap/go-task" "goreleaser" "pandoc" "rename" "hub" "sqlite")
-npmGlobals=("verccel" "http-server" "npm-check-updates")
+npmGlobals=("vercel" "http-server" "npm-check-updates")
 
 # Annoying macos stuff
 echo -n "setting key repeat..."
