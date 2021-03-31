@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-brewCask=("brave-browser" "1password" "iterm2" "slack" "dbeaver-community" "expressvpn" "visual-studio-code" "intellij-idea-ce" "steam" "vlc" "qbittorrent" "zoomus" "goland" "ngrok" "spectacle" "steermouse" "adoptopenjdk/openjdk/adoptopenjdk8" "docker")
+brewCask=("brave-browser" "1password" "iterm2" "slack" "expressvpn" "visual-studio-code" "steam" "vlc" "qbittorrent" "zoomus" "goland" "ngrok" "adoptopenjdk/openjdk/adoptopenjdk8" "docker")
 brew=("git" "bat" "zsh" "z" "vim" "wget" "curl" "htop" "pipenv" "gcc" "tree" "jq" "postgres" "coreutils" "r" "rsync" "tmux" "maven" "watch" "gdrive" "go-task/tap/go-task" "goreleaser" "pandoc" "rename" "hub" "sqlite")
 npmGlobals=("vercel" "http-server" "npm-check-updates")
 
@@ -23,7 +23,7 @@ echo "done"
 
 for i in ${brewCask[@]}; do
   echo -n "installing $i..."
-  brew cask list $i >/dev/null 2>&1 || brew cask install $i
+  brew list --cask $i >/dev/null 2>&1 || brew install --cask $i
   echo "done"
 done
 
