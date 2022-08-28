@@ -6,13 +6,8 @@ Uses mostly brew.  You should be able to run this straight from a brand new mac 
 
 ## Run it
 
-Download the `setup.sh` file.
-
-chmod it  `chmod +x setup.sh`
-
-Run it `./setup.sh`
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/codeallthethingz/brew-mac-setup/master/setup.sh)"
 
 ## Modify it
 
 Most of the programs are set in the arrays at the top of the script using brew and brew cask.
-Miro needed to have the .dmg downloaded and then mounted and extracted.
