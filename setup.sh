@@ -6,8 +6,8 @@ brewCasks="brave-browser 1password iterm2 slack expressvpn
 
 brews="go git bat zsh z vim wget curl htop pipenv gcc tree 
        jq postgresql coreutils r rsync tmux maven watch 
-       gdrive go-task goreleaser pandoc rename 
-       hub sqlite mysql-client openjdk@8"
+       gdrive goreleaser pandoc rename hub sqlite 
+       mysql-client openjdk@8"
 
 npmGlobals="vercel http-server npm-check-updates"
 
