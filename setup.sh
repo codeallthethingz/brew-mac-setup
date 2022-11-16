@@ -2,12 +2,14 @@
 
 brewCasks="brave-browser 1password iterm2 slack expressvpn 
            visual-studio-code steam vlc qbittorrent zoom 
-           goland ngrok docker dbeaver-community"
+           goland ngrok docker dbeaver-community warp istats-menu 
+           bartender adobe-acrobat-reader google-chrome iina 
+           monitorcontrol xmind discord"
 
 brews="go git bat zsh z vim wget curl htop pipenv gcc tree 
        jq postgresql coreutils r rsync tmux maven watch 
        gdrive goreleaser pandoc rename hub sqlite 
-       mysql-client openjdk@8"
+       mysql-client openjdk@8 python thefuck vim"
 
 npmGlobals="vercel http-server npm-check-updates"
 
@@ -40,7 +42,7 @@ containsElement() {
 setupOhMyZsh() {
        # # Oh My Zsh
        echo -n "installing oh my zsh... "
-       if [ ! -d "/Users/will/.oh-my-zsh" ]; then
+       if [ ! -d "$HOME/.oh-my-zsh" ]; then
               echo -n " downloading... "
               
               output=$(sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended 2>&1)
