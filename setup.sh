@@ -1,7 +1,7 @@
 #!/bin/bash
 
 brewCasks="1password iterm2 slack brave-browser
-           visual-studio-code steam vlc qbittorrent zoom
+           visual-studio-code steam vlc zoom
            docker docker-desktop dbeaver-community claude
            aerospace ngrok google-chrome whatsapp
            plex-media-server pop"
