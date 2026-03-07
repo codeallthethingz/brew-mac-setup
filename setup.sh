@@ -141,18 +141,22 @@ setupNvm() {
        if [ ! -d "$HOME/.nvm" ]; then
               NVM_DIR=""
               nvmLatest=$(curl -sL https://github.com/nvm-sh/nvm/releases/latest | egrep -so "[0-9]*\.[0-9]*\.[0-9]*" | head -n 1 | tr -s " ")
-              nodeLatest=$(curl -sL https://github.com/nodejs/node/releases/latest | egrep -so "[0-9]*\.[0-9]*\.[0-9]*" | head -n 1 | tr -s " ")
-
               run_install "nvm v$nvmLatest" bash -c "curl -s -o- 'https://raw.githubusercontent.com/nvm-sh/nvm/v${nvmLatest}/install.sh' | bash"
-              NVM_DIR="$HOME/.nvm"
-              [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-              run_install "node v$nodeLatest" nvm install --no-progress $nodeLatest
        else
               print_skip "nvm"
        fi
-       # ensure nvm/node/npm are in PATH for subsequent steps
        export NVM_DIR="$HOME/.nvm"
        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+       if ! grep -q 'NVM_DIR' ~/.zshrc-ext 2>/dev/null; then
+              echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.zshrc-ext
+              echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> ~/.zshrc-ext
+       fi
+       if ! command -v node >/dev/null 2>&1; then
+              nodeLatest=$(curl -sL https://github.com/nodejs/node/releases/latest | egrep -so "[0-9]*\.[0-9]*\.[0-9]*" | head -n 1 | tr -s " ")
+              run_install "node v$nodeLatest" nvm install --no-progress $nodeLatest
+       else
+              print_skip "node $(node -v)"
+       fi
 }
 setupNpmGlobals() {
        npmGlobals=("$@")
