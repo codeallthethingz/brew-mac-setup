@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 brewCasks="1password iterm2 slack brave-browser
            visual-studio-code steam vlc qbittorrent zoom
@@ -14,10 +15,12 @@ brews="go git gh bat zsh z vim wget curl htop pipenv gcc tree
 npmGlobals="vercel http-server npm-check-updates pnpm @anthropic-ai/claude-code"
 
 # don't check home brew for updates
-HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_AUTO_UPDATE=1
 
 # ask for sudo up front so we don't need to ask for passwords later
 sudo -v
+# keep sudo alive in the background
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 main() {
        setupMacosDefaults
@@ -42,20 +45,20 @@ containsElement() {
 setupOhMyZsh() {
        # # Oh My Zsh
        echo -n "installing oh my zsh... "
-       if [ ! -d "/Users/will/.oh-my-zsh" ]; then
+       if [ ! -d "$HOME/.oh-my-zsh" ]; then
               echo -n " downloading... "
-              
+
               output=$(sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended 2>&1)
               failed=$?
-              if [ ! $failed ]; then 
-                     echo failed
-                     echo $failed
-                     echo $output
+              if [ $failed -ne 0 ]; then
+                     echo "failed"
+                     echo "$failed"
+                     echo "$output"
                      exit 1
               fi
               echo "source ~/.zshrc-ext" >>~/.zshrc
-              chsh -s /usr/local/bin/zsh
-              echo "plugins=(git colored-man colorize pip python brew osx zsh-syntax-highlighting)" >~/.zshrc-ext
+              chsh -s "$(which zsh)"
+              echo "plugins=(git colored-man colorize pip python brew macos zsh-syntax-highlighting)" >~/.zshrc-ext
               echo ". $(brew --prefix)/etc/profile.d/z.sh" >>~/.zshrc-ext
               echo "disable r functions" >>~/.zshrc-ext
        fi
@@ -78,13 +81,13 @@ setupNvm() {
 }
 setupNpmGlobals() {
        npmGlobals=("$@")
-       for i in ${npmGlobals[@]}; do
+       for i in "${npmGlobals[@]}"; do
               echo -n "installing $i... "
-              npm list -g $i >/dev/null 2>&1
+              npm list -g "$i" >/dev/null 2>&1
               contains=$?
               if [ $contains -ne 0 ]; then
                      echo -n "downloading... "
-                     output=$(npm install -g $i 2>&1)
+                     output=$(npm install -g "$i" 2>&1)
                      failed=$?
                      if [ $failed -ne 0 ]; then
                             echo -n "$output"
@@ -96,9 +99,13 @@ setupNpmGlobals() {
 }
 setupGo() {
        # Go paths
-       echo 'export GOPATH="${HOME}/.go"' >>~/.zshrc-ext
-       echo 'export GOROOT="$(brew --prefix golang)/libexec"' >>~/.zshrc-ext
-       echo 'export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"' >>~/.zshrc-ext
+       echo -n "setting up go paths... "
+       if ! grep -q 'GOPATH' ~/.zshrc-ext 2>/dev/null; then
+              echo 'export GOPATH="${HOME}/.go"' >>~/.zshrc-ext
+              echo 'export GOROOT="$(brew --prefix golang)/libexec"' >>~/.zshrc-ext
+              echo 'export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"' >>~/.zshrc-ext
+       fi
+       echo "done"
 }
 
 setupGit() {
@@ -120,10 +127,10 @@ setupGit() {
 
        git config --global pager.branch false
 
-       if [ ! -f ~/.ssh/id_rsa ]; then
+       if [ ! -f ~/.ssh/id_ed25519 ]; then
               echo ""
               echo "generating public private key pair with email $email"
-              ssh-keygen -t rsa -b 4096 -C "$email" -q -N "" -f ~/.ssh/id_rsa
+              ssh-keygen -t ed25519 -C "$email" -q -N "" -f ~/.ssh/id_ed25519
        fi
 
        echo "done"
@@ -134,16 +141,16 @@ setupBrews() {
        echo "--- brew brews ---"
        installedBrews=$(brew list)
 
-       for i in ${brews[@]}; do
+       for i in "${brews[@]}"; do
               echo -n "installing $i... "
-              containsElement $i ${installedBrews[@]}
+              containsElement "$i" ${installedBrews[@]}
               contains=$?
               if [ $contains -ne 0 ]; then
                      echo -n " downloading... "
-                     output=$(brew install $i >/dev/null)
+                     output=$(brew install "$i" 2>&1)
                      failed=$?
                      if [ $failed -ne 0 ]; then
-                            echo -n "$output"
+                            echo "$output"
                             exit 1
                      fi
               fi
@@ -178,16 +185,16 @@ setupBrewCasks() {
        echo "--- brew casks ---"
        installedBrews=$(brew list)
 
-       for i in ${brewCasks[@]}; do
+       for i in "${brewCasks[@]}"; do
               echo -n "installing $i... "
-              containsElement $i ${installedBrews[@]}
+              containsElement "$i" ${installedBrews[@]}
               contains=$?
               if [ $contains -ne 0 ]; then
                      echo -n "downloading... "
-                     output=$(brew install --cask $i >/dev/null)
+                     output=$(brew install --cask "$i" 2>&1)
                      failed=$?
                      if [ $failed -ne 0 ]; then
-                            echo -n "$output"
+                            echo "$output"
                             exit 1
                      fi
               fi
