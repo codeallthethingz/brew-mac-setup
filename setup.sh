@@ -83,9 +83,7 @@ setupNpmGlobals() {
        npmGlobals=("$@")
        for i in "${npmGlobals[@]}"; do
               echo -n "installing $i... "
-              npm list -g "$i" >/dev/null 2>&1
-              contains=$?
-              if [ $contains -ne 0 ]; then
+              if ! npm list -g "$i" >/dev/null 2>&1; then
                      echo -n "downloading... "
                      output=$(npm install -g "$i" 2>&1)
                      failed=$?
@@ -143,9 +141,7 @@ setupBrews() {
 
        for i in "${brews[@]}"; do
               echo -n "installing $i... "
-              containsElement "$i" ${installedBrews[@]}
-              contains=$?
-              if [ $contains -ne 0 ]; then
+              if ! containsElement "$i" ${installedBrews[@]}; then
                      echo -n " downloading... "
                      output=$(brew install "$i" 2>&1)
                      failed=$?
@@ -193,9 +189,7 @@ setupBrewCasks() {
 
        for i in "${brewCasks[@]}"; do
               echo -n "installing $i... "
-              containsElement "$i" ${installedBrews[@]}
-              contains=$?
-              if [ $contains -ne 0 ]; then
+              if ! containsElement "$i" ${installedBrews[@]}; then
                      echo -n "downloading... "
                      output=$(brew install --cask "$i" 2>&1)
                      failed=$?
