@@ -166,6 +166,12 @@ setupBrew() {
               echo >&2 "Installing Homebrew Now"
               /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
        }
+       # ensure brew is in PATH (needed on Apple Silicon where brew is at /opt/homebrew)
+       if [ -x /opt/homebrew/bin/brew ]; then
+              eval "$(/opt/homebrew/bin/brew shellenv)"
+       elif [ -x /usr/local/bin/brew ]; then
+              eval "$(/usr/local/bin/brew shellenv)"
+       fi
        echo "done"
 }
 
