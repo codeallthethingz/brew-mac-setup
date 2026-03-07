@@ -7,7 +7,7 @@ Uses mostly brew. You should be able to run this straight from a brand new mac w
 ## Run it
 
 ```bash
-bash -c "$(curl -H 'Cache-Control: no-cache, no-store' -fsSL https://raw.githubusercontent.com/codeallthethingz/brew-mac-setup/master/setup.sh)"
+bash -c "$(curl -H 'Cache-Control: no-cache, no-store' -fsSL https://raw.githubusercontent.com/codeallthethingz/brew-mac-setup/main/setup.sh)"
 ```
 
 ## Modify it
