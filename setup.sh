@@ -201,6 +201,18 @@ setupGit() {
               ssh-keygen -t ed25519 -C "$gitEmail" -q -N "" -f ~/.ssh/id_ed25519
               print_success "ssh key"
        fi
+
+       if ! gh auth status >/dev/null 2>&1; then
+              gh auth login
+       fi
+       local keyTitle
+       keyTitle="$(scutil --get ComputerName)"
+       if gh ssh-key list | grep -q "$keyTitle"; then
+              print_skip "ssh key on github"
+       else
+              gh ssh-key add ~/.ssh/id_ed25519.pub --title "$keyTitle"
+              print_success "ssh key added to github"
+       fi
 }
 
 setupBrews() {
