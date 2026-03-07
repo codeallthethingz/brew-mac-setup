@@ -109,8 +109,10 @@ main() {
        setupOhMyZsh
 
        echo ""
-       printf "  ${green}${bold}✔ Setup complete${reset}\n"
+       printf "  ${green}${bold}✔ Setup complete — logging out to apply settings${reset}\n"
        echo ""
+       sleep 3
+       launchctl bootout user/$(id -u)
 }
 
 # ----------- functions -------------
@@ -251,6 +253,7 @@ setupMacosDefaults() {
        defaults write -g KeyRepeat -int 2         # normal minimum is 2 (30 ms)
        print_success "key repeat"
        defaults write com.apple.dock persistent-apps -array
+       killall Dock
        print_success "clean dock"
 }
 
