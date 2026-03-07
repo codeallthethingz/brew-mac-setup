@@ -136,19 +136,21 @@ setupOhMyZsh() {
 }
 setupNvm() {
        print_header "NVM & Node"
-       if [ -d "$HOME/.nvm" ]; then
+       if [ ! -d "$HOME/.nvm" ]; then
+              NVM_DIR=""
+              nvmLatest=$(curl -sL https://github.com/nvm-sh/nvm/releases/latest | egrep -so "[0-9]*\.[0-9]*\.[0-9]*" | head -n 1 | tr -s " ")
+              nodeLatest=$(curl -sL https://github.com/nodejs/node/releases/latest | egrep -so "[0-9]*\.[0-9]*\.[0-9]*" | head -n 1 | tr -s " ")
+
+              run_install "nvm v$nvmLatest" bash -c "curl -s -o- 'https://raw.githubusercontent.com/nvm-sh/nvm/v${nvmLatest}/install.sh' | bash"
+              NVM_DIR="$HOME/.nvm"
+              [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+              run_install "node v$nodeLatest" nvm install --no-progress $nodeLatest
+       else
               print_skip "nvm"
-              return
        fi
-
-       NVM_DIR=""
-       nvmLatest=$(curl -sL https://github.com/nvm-sh/nvm/releases/latest | egrep -so "[0-9]*\.[0-9]*\.[0-9]*" | head -n 1 | tr -s " ")
-       nodeLatest=$(curl -sL https://github.com/nodejs/node/releases/latest | egrep -so "[0-9]*\.[0-9]*\.[0-9]*" | head -n 1 | tr -s " ")
-
-       run_install "nvm v$nvmLatest" bash -c "curl -s -o- 'https://raw.githubusercontent.com/nvm-sh/nvm/v${nvmLatest}/install.sh' | bash"
-       NVM_DIR="$HOME/.nvm"
+       # ensure nvm/node/npm are in PATH for subsequent steps
+       export NVM_DIR="$HOME/.nvm"
        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-       run_install "node v$nodeLatest" nvm install --no-progress $nodeLatest
 }
 setupNpmGlobals() {
        npmGlobals=("$@")
@@ -221,7 +223,7 @@ setupBrew() {
        if command -v brew >/dev/null 2>&1; then
               print_skip "homebrew"
        else
-              run_install "homebrew" /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+              /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
        fi
        # ensure brew is in PATH (needed on Apple Silicon where brew is at /opt/homebrew)
        if [ -x /opt/homebrew/bin/brew ]; then
