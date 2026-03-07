@@ -22,6 +22,7 @@ sudo -v
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 main() {
+       promptGitInfo
        setupMacosDefaults
        setupBrew
        setupBrewCasks $brewCasks
@@ -102,29 +103,28 @@ setupGo() {
        echo "done"
 }
 
-setupGit() {
-       email=$(git config --global user.email)
-       username=$(git config --global user.name)
-       echo -n "setting up git... "
-       if [ "$username" == "" ]; then
-              echo ""
-              echo "enter username:"
+promptGitInfo() {
+       gitEmail=$(git config --global user.email)
+       gitUsername=$(git config --global user.name)
+       if [ "$gitUsername" == "" ]; then
+              echo "enter git username:"
               read gitUsername
-              git config --global user.name "$gitUsername"
        fi
-       if [ "$email" == "" ]; then
-              echo ""
-              echo "enter email:"
-              read email
-              git config --global user.email "$email"
+       if [ "$gitEmail" == "" ]; then
+              echo "enter git email:"
+              read gitEmail
        fi
+}
 
+setupGit() {
+       echo -n "setting up git... "
+       git config --global user.name "$gitUsername"
+       git config --global user.email "$gitEmail"
        git config --global pager.branch false
 
        if [ ! -f ~/.ssh/id_ed25519 ]; then
-              echo ""
-              echo "generating public private key pair with email $email"
-              ssh-keygen -t ed25519 -C "$email" -q -N "" -f ~/.ssh/id_ed25519
+              echo "generating public private key pair with email $gitEmail"
+              ssh-keygen -t ed25519 -C "$gitEmail" -q -N "" -f ~/.ssh/id_ed25519
        fi
 
        echo "done"
