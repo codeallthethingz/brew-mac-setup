@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 brewCasks="1password iterm2 slack brave-browser
            visual-studio-code steam vlc qbittorrent zoom
@@ -52,9 +51,7 @@ setupOhMyZsh() {
               failed=$?
               if [ $failed -ne 0 ]; then
                      echo "failed"
-                     echo "$failed"
                      echo "$output"
-                     exit 1
               fi
               echo "source ~/.zshrc-ext" >>~/.zshrc
               chsh -s "$(which zsh)"
@@ -88,8 +85,7 @@ setupNpmGlobals() {
                      output=$(npm install -g "$i" 2>&1)
                      failed=$?
                      if [ $failed -ne 0 ]; then
-                            echo -n "$output"
-                            exit 1
+                            echo "$output"
                      fi
               fi
               echo "done"
@@ -147,7 +143,6 @@ setupBrews() {
                      failed=$?
                      if [ $failed -ne 0 ]; then
                             echo "$output"
-                            exit 1
                      fi
               fi
               echo "done"
@@ -195,7 +190,6 @@ setupBrewCasks() {
                      failed=$?
                      if [ $failed -ne 0 ]; then
                             echo "$output"
-                            exit 1
                      fi
               fi
               echo "done"
