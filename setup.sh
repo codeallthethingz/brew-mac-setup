@@ -1,15 +1,15 @@
 #!/bin/bash
 
 brewCasks="1password iterm2 slack brave-browser
-           visual-studio-code steam vlc qbittorrent zoom 
-           docker dbeaver-community surfshark"
+           visual-studio-code steam vlc qbittorrent zoom
+           docker dbeaver-community claude"
 
-brews="go git bat zsh z vim wget curl htop pipenv gcc tree 
-       jq postgresql@14 coreutils r rsync tmux watch 
-       gdrive goreleaser rename hub sqlite 
-       mysql-client fswatch"
+brews="go git bat zsh z vim wget curl htop pipenv gcc tree
+       jq coreutils rsync tmux watch
+       gdrive goreleaser rename hub sqlite
+       fswatch"
 
-npmGlobals="vercel http-server npm-check-updates pnpm"
+npmGlobals="vercel http-server npm-check-updates pnpm @anthropic-ai/claude-code"
 
 # don't check home brew for updates
 HOMEBREW_NO_AUTO_UPDATE=1
