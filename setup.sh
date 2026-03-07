@@ -259,8 +259,9 @@ setupMacosDefaults() {
               print_skip "aerospace start-at-login"
        else
               echo 'start-at-login = true' >> ~/.aerospace.toml
-              print_success "aerospace start-at-login"
        fi
+       open -a AeroSpace
+       print_success "aerospace start-at-login"
 }
 
 setupBrewCasks() {
