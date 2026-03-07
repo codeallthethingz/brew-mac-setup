@@ -255,13 +255,11 @@ setupMacosDefaults() {
        defaults write com.apple.dock persistent-apps -array
        killall Dock
        print_success "clean dock"
-       open -a AeroSpace
-       sleep 2
-       if grep -q 'start-at-login = true' ~/.aerospace.toml 2>/dev/null; then
-              print_skip "aerospace start-at-login"
+       if osascript -e 'tell application "System Events" to get the name of every login item' | grep -q AeroSpace; then
+              print_skip "aerospace login item"
        else
-              sed -i '' 's/start-at-login = false/start-at-login = true/' ~/.aerospace.toml
-              print_success "aerospace start-at-login"
+              osascript -e 'tell application "System Events" to make login item at end with properties {name: "AeroSpace", path: "/Applications/AeroSpace.app", hidden: false}'
+              print_success "aerospace login item"
        fi
 }
 
