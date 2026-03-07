@@ -2,12 +2,14 @@
 
 brewCasks="1password iterm2 slack brave-browser
            visual-studio-code steam vlc qbittorrent zoom
-           docker dbeaver-community claude"
+           docker docker-desktop dbeaver-community claude
+           aerospace ngrok google-chrome whatsapp
+           plex-media-server pop"
 
-brews="go git bat zsh z vim wget curl htop pipenv gcc tree
-       jq coreutils rsync tmux watch
-       gdrive goreleaser rename hub sqlite
-       fswatch"
+brews="go git gh bat zsh z vim wget curl htop pipenv gcc tree
+       jq coreutils rsync tmux watch ffmpeg
+       gdrive goreleaser rename sqlite
+       fswatch bun uv"
 
 npmGlobals="vercel http-server npm-check-updates pnpm @anthropic-ai/claude-code"
 
