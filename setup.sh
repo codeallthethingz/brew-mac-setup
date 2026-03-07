@@ -3,13 +3,13 @@
 brewCasks="1password iterm2 slack brave-browser
            visual-studio-code steam vlc zoom
            docker docker-desktop dbeaver-community claude
-           aerospace ngrok google-chrome whatsapp
+           nikitabobko/tap/aerospace ngrok google-chrome whatsapp
            plex-media-server pop"
 
 brews="go git gh bat zsh z vim wget curl htop pipenv gcc tree
        jq coreutils rsync tmux watch ffmpeg
        gdrive goreleaser rename sqlite
-       fswatch bun uv"
+       fswatch oven-sh/bun/bun uv"
 
 npmGlobals="vercel http-server npm-check-updates pnpm @anthropic-ai/claude-code"
 
@@ -207,10 +207,11 @@ setupBrews() {
        installedBrews=$(brew list)
 
        for i in "${brews[@]}"; do
-              if containsElement "$i" ${installedBrews[@]}; then
-                     print_skip "$i"
+              local short="${i##*/}"
+              if containsElement "$short" ${installedBrews[@]}; then
+                     print_skip "$short"
               else
-                     run_install "$i" brew install "$i"
+                     run_install "$short" brew install "$i"
               fi
        done
 }
@@ -245,10 +246,11 @@ setupBrewCasks() {
        installedBrews=$(brew list)
 
        for i in "${brewCasks[@]}"; do
-              if containsElement "$i" ${installedBrews[@]}; then
-                     print_skip "$i"
+              local short="${i##*/}"
+              if containsElement "$short" ${installedBrews[@]}; then
+                     print_skip "$short"
               else
-                     run_install "$i" brew install --cask "$i"
+                     run_install "$short" brew install --cask "$i"
               fi
        done
 }
