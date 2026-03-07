@@ -255,6 +255,12 @@ setupMacosDefaults() {
        defaults write com.apple.dock persistent-apps -array
        killall Dock
        print_success "clean dock"
+       if grep -q 'start-at-login' ~/.aerospace.toml 2>/dev/null; then
+              print_skip "aerospace start-at-login"
+       else
+              echo 'start-at-login = true' >> ~/.aerospace.toml
+              print_success "aerospace start-at-login"
+       fi
 }
 
 setupBrewCasks() {
