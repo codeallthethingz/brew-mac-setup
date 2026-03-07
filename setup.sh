@@ -186,6 +186,9 @@ promptGitInfo() {
               printf "  ${yellow}?${reset} Enter git email: "
               read gitEmail
        fi
+       if ! gh auth status >/dev/null 2>&1; then
+              gh auth login --git-protocol ssh --web --hostname github.com
+       fi
 }
 
 setupGit() {
@@ -202,9 +205,6 @@ setupGit() {
               print_success "ssh key"
        fi
 
-       if ! gh auth status >/dev/null 2>&1; then
-              gh auth login
-       fi
        local keyTitle
        keyTitle="$(scutil --get ComputerName)"
        if gh ssh-key list | grep -q "$keyTitle"; then
